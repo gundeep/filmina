@@ -1,0 +1,69 @@
+{
+  "name": "mina-nft",
+  "version": "0.1.4",
+  "description": "",
+  "keywords": [],
+  "license": "Apache-2.0",
+  "author": "",
+  "type": "module",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
+  "scripts": {
+    "test": "jest",
+    "testw": "jest --watch",
+    "coverage": "jest --coverage",
+    "start": "node gcp/server.js",
+    "serve": "node src/server.js & esbuild --watch --splitting --bundle ./src/App.tsx --outdir=./public/js --format=esm --target=esnext --define:process.env.NODE_ENV='\"development\"'",
+    "local-build": "esbuild --minify --splitting --bundle ./src/App.tsx --outdir=./public/js --format=esm --target=esnext --define:process.env.NODE_ENV='\"production\"'",
+    "build": "esbuild --minify --splitting --bundle ./src/App.tsx --outdir=./gcp/public/js --format=esm --target=esnext --define:process.env.NODE_ENV='\"production\"'",
+    "format": "prettier --write --ignore-unknown **/*"
+  },
+  "lint-staged": {
+    "**/*": [
+      "eslint src/* --fix",
+      "prettier --write --ignore-unknown"
+    ]
+  },
+  "dependencies": {
+    "express": "^4.17.3",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/material": "^5.4.2",
+    "esbuild": "^0.14.2",
+    "mime": "^3.0.0",
+    "multiformats": "^9.6.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "snarkyjs": "^0.2.2",
+    "web3.storage": "^4.2.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-typescript": "^7.16.0",
+    "@types/jest": "^27.0.3",
+    "@types/mime": "^2.0.3",
+    "@types/react-dom": "^17.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "eslint": "^8.7.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-snarkyjs": "^0.1.0",
+    "jest": "^27.3.1",
+    "lint-staged": "^11.0.1",
+    "prettier": "^2.3.2",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.5.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

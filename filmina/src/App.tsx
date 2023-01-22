@@ -5,19 +5,19 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import {Paper, TextField, Typography } from '@mui/material';
+import { Alert, Paper, TextField, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { alpha } from '@mui/material/styles';
-import {mint, NFTMetaData} from "./NFT.js";
-import {isReady, Mina, Field} from "snarkyjs";
-import {deployWallet} from "./wallet.js";
+import { mint, NFTMetaData } from "./NFT.js";
+import { isReady, Mina, Field } from "snarkyjs";
+import { deployWallet } from "./wallet.js";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-import {File} from "web3.storage";
+import { File } from "web3.storage";
 
 
 import { Drawer, useTheme } from '@mui/material';
@@ -49,7 +49,6 @@ interface TabPanelProps {
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -87,7 +86,7 @@ const account2 = Local.testAccounts[1].privateKey;
 let wallet = await deployWallet(account1, account2, Field.zero);
 
 function FileUpload() {
-  
+
   const [fileToUpload, setFileToUpload] = React.useState<File>();
   const [imageList, setImageList] = React.useState<any[]>(dataNFTs);
 
@@ -95,11 +94,12 @@ function FileUpload() {
     const fileList = e.target.files;
 
     if (!fileList) return;
-    //console.log(fileList);
+    console.log(fileList);
     setFileToUpload(fileList[0]);
   }
-  
-  
+
+  // create a checkbox 
+
   async function uploadHandler(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
     if (fileToUpload) {
       const formData = new FormData();
@@ -115,43 +115,44 @@ function FileUpload() {
         img: address.ipfsUrl,
         title: name,
       });
-      //console.log(dataNFTs);
+      console.log(dataNFTs);
 
       setFileToUpload(null);
     }
   }
 
-  return(
+  return (
     <>
-    <Container sx={{ width: 300 }}>
-      <Stack direction="column" spacing={2}>
+      <Container sx={{ width: 300 }}>
+        <Stack direction="column" spacing={2}>
 
-        <Button
-          variant="outlined"
-          component="label"
-        >
-          Upload Image
-          <input
-            type="file"
-            name="photo"
-            id="image"
-            onChange={changeHandler}
-            hidden />
-        </Button>
-        <Box bgcolor={myTheme.palette.secondary.light} />
-        <Button
-          onClick={uploadHandler}
-          sx={{ m: 3, p: 2 }}
-          variant="contained"
-        >
-          Mint
-        </Button>
-        <Box />
-      </Stack>
-    </Container><Container fixed>
+          <Button
+            variant="contained"
+            component="label"
+          >
+            Upload Data
+            <input
+              type="file"
+              name="photo"
+              id="image"
+              onChange={changeHandler}
+              hidden />
+          </Button>
+          <Box bgcolor={myTheme.shadows[11]} />
+          <Button
+            onClick={uploadHandler}
+            sx={{ m: 3, p: 2 }}
+            variant="contained"
+          >
+            Mint
+          </Button>
+          <Box />
+        </Stack>
+      </Container><Container fixed>
         <Gallery imageList={imageList} />
       </Container>
-      </>
+      <Alert severity="success">File was succesfully uploaded!</Alert>
+    </>
   );
 }
 
@@ -162,7 +163,7 @@ interface BorrowTableProps {
 
 
 function Gallery(props: BorrowTableProps) {
-  const {imageList} = props;
+  const { imageList } = props;
 
   return (
 
@@ -171,22 +172,22 @@ function Gallery(props: BorrowTableProps) {
         {imageList.map((item) => (
           <ImageListItem key={item.img}>
             <img
-            crossOrigin="anonymous"
-            src={`${item.img}?w=248&fit=crop&auto=format`}
-            //srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-            alt={item.title}
+              crossOrigin="anonymous"
+              src={`${item.img}?w=248&fit=crop&auto=format`}
+              //srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+              alt={item.title}
             //loading="lazy"
-          />
-          <ImageListItemBar 
-            position="below" 
-            title={item.title}
-            sx={{textAlign: "center", fontWeight: 'medium', fontSize: 'h3.fontSize', fontFamily: 'Monospace'}}
-          />
-        </ImageListItem>
-      ))}
-    </ImageList>
-  </Box>
-);
+            />
+            <ImageListItemBar
+              position="below"
+              title={item.title}
+              sx={{ textAlign: "center", fontWeight: 'medium', fontSize: 'h3.fontSize', fontFamily: 'Monospace' }}
+            />
+          </ImageListItem>
+        ))}
+      </ImageList>
+    </Box>
+  );
 }
 
 /*
@@ -218,37 +219,41 @@ function LoginBox() {
 
   const [FilecoinTokenAPI, setFilecoinTokenAPI] = useState("")
 
-  return(
+  return (
     <Container
-      maxWidth = "sm"
-      sx={{mt: 10}}
+      maxWidth="sm"
+      sx={{ mt: 10 }}
     >
       <Box
-        bgcolor={myTheme.palette.secondary.light}
-        sx = {{borderRadius: 3,}}
+        bgcolor={myTheme.palette.primary.main}
+        sx={{ borderRadius: 3, }}
       >
         <Typography
-          sx={{pl: 3, p: 4, fontWeight: 'medium', typography: 'body1', fontSize: 'h6.fontSize', letterSpacing: 6, fontFamily: 'Monospace'}}
+          sx={{ pl: 3, p: 4, fontWeight: 'medium', typography: 'body1', fontSize: 'h6.fontSize', letterSpacing: 6, fontFamily: 'Monospace' }}
         >
           FileCoin API Key:
         </Typography>
-  
-          <form>
-            <TextField
-              onChange = {(e) => setFilecoinTokenAPI(e.target.value)}
-              sx={{p: 3, width: 410}}
-              variant="standard"
-            >
-            </TextField>
-          </form>
-        
+
+        <form>
+          <TextField
+            onChange={(e) => setFilecoinTokenAPI(e.target.value)}
+            sx={{ p: 3, width: 410 }}
+            variant="standard"
+          >
+          </TextField>
+        </form>
+
         <Button
-          onClick = {() => console.log(FilecoinTokenAPI)}
-          sx={{m: 3, p: 2}}
-          variant = "contained"
+          onClick={() => console.log(FilecoinTokenAPI)}
+
+          sx={{ m: 3, p: 2 }}
+          variant="contained"
         >
           Submit
         </Button>
+        if (FilecoinTokenAPI == "") {
+          <Alert severity="error">The Id is incorrect</Alert>
+        }
       </Box>
     </Container>
   )
@@ -266,20 +271,20 @@ function App() {
   return (
     <>
       <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Login" {...a11yProps(0)} />
-          <Tab label="Gallery" {...a11yProps(1)} />
-        </Tabs>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+            <Tab label="Login" {...a11yProps(0)} />
+            <Tab label="Gallery" {...a11yProps(1)} />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0}>
+          <LoginBox />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <FileUpload />
+          <Gallery imageList={dataNFTs} />
+        </TabPanel>
       </Box>
-      <TabPanel value={value} index={0}>
-        <LoginBox/>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <FileUpload/>
-        <Gallery imageList={dataNFTs}/>
-      </TabPanel>
-    </Box>
     </>
   );
 }

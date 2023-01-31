@@ -130,7 +130,7 @@ function FileUpload() {
             variant="contained"
             component="label"
           >
-            Upload Data
+            Upload NFT
             <input
               type="file"
               name="photo"
@@ -147,6 +147,14 @@ function FileUpload() {
             Mint
           </Button>
           <Box />
+          <Box bgcolor={myTheme.shadows[11]} />
+          <label for="avatar"
+          bgcolor={myTheme.shadows[11]}>Choose any other file type</label>
+          <Box />
+        <input bgcolor={myTheme.shadows[11]} 
+        type="file"
+       id="avatar" name="avatar"
+       accept=""></input>
         </Stack>
       </Container><Container fixed>
         <Gallery imageList={imageList} />

@@ -170,6 +170,7 @@ export function convertFieldstoCID(f: Field[]) {
   return CID.decode(bytes);
 }
 
+// Convert this to FE to be able to push it Mina contract.
 export function convertCIDtoFields(cid: CID): Field[] {
   let fields = new Array<Field>();
   let bit = 0;

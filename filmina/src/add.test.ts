@@ -15,7 +15,7 @@ describe('index.ts', () => {
       let ff = convertCIDtoFields(cid);
       let cc = convertFieldstoCID(ff);
       console.log(cc.toString());
-      //expect(Field(1).add(1)).toEqual(Field(2));
+      expect(Field(1).add(1)).toEqual(Field(2));
     });
   });
 });

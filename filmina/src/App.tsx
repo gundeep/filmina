@@ -138,6 +138,15 @@ function FileUpload() {
               onChange={changeHandler}
               hidden />
           </Button>
+
+          <Box bgcolor={myTheme.shadows[11]} />
+          <label for="avatar"
+            bgcolor={myTheme.shadows[11]}>Choose any other file type</label>
+          <Box />
+          <input bgcolor={myTheme.shadows[11]}
+            type="file"
+            id="avatar" name="avatar"
+            accept=""></input>
           <Box bgcolor={myTheme.shadows[11]} />
           <Button
             onClick={uploadHandler}
@@ -147,17 +156,9 @@ function FileUpload() {
             Mint
           </Button>
           <Box />
-          <Box bgcolor={myTheme.shadows[11]} />
-          <label for="avatar"
-          bgcolor={myTheme.shadows[11]}>Choose any other file type</label>
-          <Box />
-        <input bgcolor={myTheme.shadows[11]} 
-        type="file"
-       id="avatar" name="avatar"
-       accept=""></input>
         </Stack>
       </Container><Container fixed>
-        <Gallery imageList={imageList} />
+        <GalleryPage imageList={imageList} />
       </Container>
       <Alert severity="success">File was succesfully uploaded!</Alert>
     </>
@@ -170,7 +171,7 @@ interface BorrowTableProps {
 }
 
 
-function Gallery(props: BorrowTableProps) {
+function GalleryPage(props: BorrowTableProps) {
   const { imageList } = props;
 
   return (
@@ -222,8 +223,7 @@ function Gallery(props: BorrowTableProps) {
 */
 
 
-function LoginBox() {
-
+function LoginPage() {
 
   const [FilecoinTokenAPI, setFilecoinTokenAPI] = useState("")
 
@@ -282,15 +282,15 @@ function App() {
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
             <Tab label="Login" {...a11yProps(0)} />
-            <Tab label="Gallery" {...a11yProps(1)} />
+            <Tab label="UploadPage" {...a11yProps(1)} />
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <LoginBox />
+          <LoginPage />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <FileUpload />
-          <Gallery imageList={dataNFTs} />
+          <GalleryPage imageList={dataNFTs} />
         </TabPanel>
       </Box>
     </>

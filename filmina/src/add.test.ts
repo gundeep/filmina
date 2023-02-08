@@ -13,6 +13,8 @@ describe('index.ts', () => {
     it('should convert cid to field and back', async () => {
       let cid = CID.parse('bafybeie2cnli2vrkyzdnuv6ed7cn7ugiowd76kignndhffin23unkwxwgu');
       let ff = convertCIDtoFields(cid);
+      console.log(cid);
+      console.log(ff);
       let cc = convertFieldstoCID(ff);
       console.log(cc.toString());
       expect(Field(1).add(1)).toEqual(Field(2));

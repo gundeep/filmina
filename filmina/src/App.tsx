@@ -74,7 +74,7 @@ function a11yProps(index: number) {
 }
 
 let address;
-let dataNFTs = [];
+let dataNFTs: any[] | (() => any[]) = [];
 let name: string;
 
 await isReady;
@@ -98,7 +98,9 @@ function FileUpload() {
     setFileToUpload(fileList[0]);
   }
 
-  // create a checkbox 
+  // create a checkbox
+  const [checked, setChecked] = React.useState(true);
+  
 
   async function uploadHandler(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
     if (fileToUpload) {
@@ -160,6 +162,8 @@ function FileUpload() {
       </Container><Container fixed>
         <GalleryPage imageList={imageList} />
       </Container>
+      // if imageList is not empty, show the alert
+      if (imageList.length {'>'} 0)
       <Alert severity="success">File was succesfully uploaded!</Alert>
     </>
   );
@@ -169,7 +173,6 @@ interface BorrowTableProps {
   children?: React.ReactNode;
   imageList: Array<any>;
 }
-
 
 function GalleryPage(props: BorrowTableProps) {
   const { imageList } = props;
@@ -244,7 +247,9 @@ function LoginPage() {
 
         <form>
           <TextField
-            onChange={(e) => setFilecoinTokenAPI(e.target.value)}
+            onChange={(e) => setFilecoinTokenAPI(e.target.value) 
+            }
+
             sx={{ p: 3, width: 410 }}
             variant="standard"
           >
@@ -253,12 +258,12 @@ function LoginPage() {
 
         <Button
           onClick={() => console.log(FilecoinTokenAPI)}
-
           sx={{ m: 3, p: 2 }}
           variant="contained"
         >
           Submit
-        </Button>
+        </Button>                  
+
         if (FilecoinTokenAPI == "") {
           <Alert severity="error">The Id is incorrect</Alert>
         }
